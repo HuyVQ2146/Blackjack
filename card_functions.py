@@ -1,10 +1,11 @@
 import random
 
-SINGLE_DECK = (
-    [1]*4 + [2]*4 + [3]*4 + [4]*4 + [5]*4 +
-    [6]*4 + [7]*4 + [8]*4 + [9]*4 +
-    [10]*4 + [11]*4 + [12]*4 + [13]*4
-)
+SINGLE_DECK = [
+    (1,"♠"), (2,"♠"), (3,"♠"), (4,"♠"), (5,"♠"), (6,"♠"), (7,"♠"), (8,"♠"), (9,"♠"), (10,"♠"), (11,"♠"), (12,"♠"), (13,"♠"),
+    (1,"♣"), (2,"♣"), (3,"♣"), (4,"♣"), (5,"♣"), (6,"♣"), (7,"♣"), (8,"♣"), (9,"♣"), (10,"♣"), (11,"♣"), (12,"♣"), (13,"♣"),
+    (1,"♦"), (2,"♦"), (3,"♦"), (4,"♦"), (5,"♦"), (6,"♦"), (7,"♦"), (8,"♦"), (9,"♦"), (10,"♦"), (11,"♦"), (12,"♦"), (13,"♦"),
+    (1,"♥"), (2,"♥"), (3,"♥"), (4,"♥"), (5,"♥"), (6,"♥"), (7,"♥"), (8,"♥"), (9,"♥"), (10,"♥"), (11,"♥"), (12,"♥"), (13,"♥")
+]
 
 CARD_NAMES = {
     0:' ',
@@ -18,12 +19,13 @@ def make_deck(num_decks=3):
     random.shuffle(deck)
     return deck
 
-def print_card(x):
+def print_card(x, Type):
     label = CARD_NAMES[x]
     if x != 10:
         print("+---------+")
         print(f"| {label}       |")
         print("|         |")
+        print(f"|    {Type}    |")
         print("|         |")
         print(f"|       {label} |")
         print("+---------+\n")
@@ -31,28 +33,39 @@ def print_card(x):
         print("+---------+")
         print(f"| {label}      |")
         print("|         |")
+        print(f"|    {Type}    |")
         print("|         |")
         print(f"|      {label} |")
         print("+---------+\n")
 
 def print_cards_side_by_side(card_list):
-    rows = [[], [], [], [], [], []]
-    for x in card_list:
+    rows = [[], [], [], [], [], [], []]
+    for x, Type in card_list:
         label = CARD_NAMES[x]
-        if x != 10:
+        if x == 0:
+            rows[0].append("+---------+")
+            rows[1].append("|         |")
+            rows[2].append("|         |")
+            rows[3].append("|         |")
+            rows[4].append("|         |")
+            rows[5].append("|         |")
+            rows[6].append("+---------+")
+        elif x != 10:
             rows[0].append("+---------+")
             rows[1].append(f"| {label}       |")
             rows[2].append("|         |")
-            rows[3].append("|         |")
-            rows[4].append(f"|       {label} |")
-            rows[5].append("+---------+")
+            rows[3].append(f"|    {Type}    |")
+            rows[4].append("|         |")
+            rows[5].append(f"|       {label} |")
+            rows[6].append("+---------+")
         else:
             rows[0].append("+---------+")
             rows[1].append(f"| {label}      |")
             rows[2].append("|         |")
-            rows[3].append("|         |")
-            rows[4].append(f"|      {label} |")
-            rows[5].append("+---------+")
+            rows[3].append(f"|    {Type}    |")
+            rows[4].append("|         |")
+            rows[5].append(f"|      {label} |")
+            rows[6].append("+---------+")
     for row in rows:
         print("   ".join(row))
     print()
