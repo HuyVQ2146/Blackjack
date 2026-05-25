@@ -76,3 +76,19 @@ def add_value(total, x):
     else:
         total += 10
     return total
+
+
+def ace_handling(check_aces, Ace_alter_points, card, total, i):
+    if check_aces[i]:
+        Ace_alter_points[i] += card[0]
+    elif card[0] == 1:  
+        check_aces[i] = True
+        Ace_alter_points[i] = 10 + (total[i] if i > 0 else total) 
+    
+def print_points(i, check_aces, Ace_alter_points, total):
+    if not check_aces[i] or Ace_alter_points[i] > 21:
+        print(f"{f"Player {i}" if i > 0 else 'Dealer'} total points: {(total[i] if i > 0 else total)}")
+    elif Ace_alter_points[i] < 21:
+        print(f"{f"Player {i}" if i > 0 else 'Dealer'} total points: {(total[i] if i > 0 else total)} or {Ace_alter_points[i]}")
+    elif Ace_alter_points[i] == 21:
+        print(f"{f"Player {i}" if i > 0 else 'Dealer'} total points: {Ace_alter_points[i]}. Blackjack")

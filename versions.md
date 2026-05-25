@@ -8,3 +8,7 @@
 ### Version 3
 -Add icons to the cards
 -Make the loop to check for the suitable input
+
+### Version 4
+-Fix Aces's value (1 or 11) issue
+-Use Claude Code CLI + NVIDIA Nemotron 3 Super (free) model to run test cases
