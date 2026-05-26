@@ -12,3 +12,6 @@
 ### Version 4
 -Fix Aces's value (1 or 11) issue
 -Use Claude Code CLI + NVIDIA Nemotron 3 Super (free) model to run test cases
+
+### Version 5
+-Change the messy function to check aces to the simplier way (using Owl Alpha model)

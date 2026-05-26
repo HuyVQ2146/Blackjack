@@ -70,25 +70,59 @@ def print_cards_side_by_side(card_list):
         print("   ".join(row))
     print()
 
-def add_value(total, x):
-    if x < 10:
-        total += x
+def add_value(total: int, card_value: int, ace_check_plus: int) -> tuple[int, int]:
+    """
+    Update hand total when a new card is added.
+
+    On each card draw:
+    - Ace adds 11 and sets ace_check_plus = 1 (hand now has an ace).
+    - Number cards 2-9 add face value.
+    - Face cards (10-K) add 10.
+
+    If total exceeds 21 and an ace is currently counted as 11
+    (ace_check_plus == 1), the ace is downgraded: total -= 10,
+    ace_check_plus = 0. The while loop handles multiple downgrades
+    across sequential calls (e.g., drawing a third ace after two
+    aces already downgraded one).
+
+    ace_check_plus meaning:
+    - 0: no ace in hand, OR ace was downgraded (total has no +10)
+    - 1: an ace is currently counted as 11 in the total
+
+    Returns
+    -------
+    tuple[int, int]
+        (updated total, ace_check_plus).
+    """
+    if card_value == 1:
+        total += 11
+        ace_check_plus = 1
+    elif card_value < 10:
+        total += card_value
     else:
         total += 10
-    return total
 
+    if total > 21 and ace_check_plus == 1:
+        total -= 10
+        ace_check_plus = 0
 
-def ace_handling(check_aces, Ace_alter_points, card, total, i):
-    if check_aces[i]:
-        Ace_alter_points[i] += card[0]
-    elif card[0] == 1:  
-        check_aces[i] = True
-        Ace_alter_points[i] = 10 + (total[i] if i > 0 else total) 
-    
-def print_points(i, check_aces, Ace_alter_points, total):
-    if not check_aces[i] or Ace_alter_points[i] > 21:
-        print(f"{f"Player {i}" if i > 0 else 'Dealer'} total points: {(total[i] if i > 0 else total)}")
-    elif Ace_alter_points[i] < 21:
-        print(f"{f"Player {i}" if i > 0 else 'Dealer'} total points: {(total[i] if i > 0 else total)} or {Ace_alter_points[i]}")
-    elif Ace_alter_points[i] == 21:
-        print(f"{f"Player {i}" if i > 0 else 'Dealer'} total points: {Ace_alter_points[i]}. Blackjack")
+    return total, ace_check_plus
+
+def display_total(total: int, ace_check_plus: int) -> str:
+    """
+    Return a display string for the hand.
+
+    When ace_check_plus == 1, the total includes one ace as 11.
+    The hard value (that ace as 1 instead) is total - 10.
+
+    Examples:
+        total=16, ace_check_plus=1  -> "6 or 16"   (soft 16)
+        total=21, ace_check_plus=1  -> "21 (Blackjack)"
+        total=12, ace_check_plus=0  -> "12"         (hard, no ace as 11)
+    """
+    if ace_check_plus == 1:
+        hard = total - 10
+        if total == 21:
+            return f"{total} (Blackjack)"
+        return f"{hard} or {total}"
+    return str(total)
