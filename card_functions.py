@@ -114,11 +114,6 @@ def display_total(total: int, ace_check_plus: int) -> str:
 
     When ace_check_plus == 1, the total includes one ace as 11.
     The hard value (that ace as 1 instead) is total - 10.
-
-    Examples:
-        total=16, ace_check_plus=1  -> "6 or 16"   (soft 16)
-        total=21, ace_check_plus=1  -> "21 (Blackjack)"
-        total=12, ace_check_plus=0  -> "12"         (hard, no ace as 11)
     """
     if ace_check_plus == 1:
         hard = total - 10

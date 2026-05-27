@@ -15,3 +15,6 @@
 
 ### Version 5
 -Change the messy function to check aces to the simplier way (using Owl Alpha model)
+
+### Version 6
+-Change from monolithic coding to seperated files (main, card_functions, game_logic)
