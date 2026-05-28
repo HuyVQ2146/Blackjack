@@ -1,7 +1,8 @@
 ### Blackjack game
 
 The program is a terminal game.
-3 files:
+4 files:
 -main.py
 -game_logic.py
 -card_functions.py
+-questions.py

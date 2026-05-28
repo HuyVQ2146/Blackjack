@@ -4,6 +4,8 @@ from card_functions import (
     make_deck, add_value, display_total,
     print_card, print_cards_side_by_side
 )
+from questions import *
+
 
 def get_int_input(prompt, min_val, max_val):
     """Prompt user for an integer within [min_val, max_val]. Repeats until valid."""
@@ -16,10 +18,9 @@ def get_int_input(prompt, min_val, max_val):
 
 def play_again():
     """Ask if players want another round. Returns True/False."""
-    restart = input("\n* Do you want to play again (1: yes, 0: no)? ")
-    while restart != "1" and restart != "0":
-        restart = input("Invalid choice. Please enter 1 to play again or 0 to quit: ")
-    return restart == "1"
+    print()
+    restart = questions(0)  # Call the questions function with index 0
+    return restart == "Yes"
 
 
 def deal_initial_hands(deck, num_players):
@@ -90,13 +91,11 @@ def player_turn(player_id, deck, cards, total, ace_check):
           f"{display_total(total, ace_check)}")
 
     while total < 21:
-        check_choice = input("\nDo you want to hit or stand? (1: hit, 0: stand): ")
-        while check_choice != "1" and check_choice != "0":
-            check_choice = input("Invalid choice. Please enter 1 to hit or 0 to stand: ")
-        choice = int(check_choice)
+        print()
+        choice = questions(1)  # Call the questions function with index 1
         print()
 
-        if choice == 1:
+        if choice == "Hit":
             new_card = deck.pop()
             cards.append(new_card)
             total, ace_check = add_value(total, new_card[0], ace_check)
@@ -119,7 +118,7 @@ def player_turn(player_id, deck, cards, total, ace_check):
                 time.sleep(2)
                 return total, ace_check, True
 
-        elif choice == 0:
+        elif choice == "Stand":
             return total, ace_check, False
 
         time.sleep(2)

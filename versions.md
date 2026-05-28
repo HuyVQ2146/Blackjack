@@ -18,3 +18,6 @@
 
 ### Version 6
 -Change from monolithic coding to seperated files (main, card_functions, game_logic)
+
+### version 7
+-upgrade the options for the yes/no questions for better interaction experience

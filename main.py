@@ -6,6 +6,7 @@ from card_functions import (
 )
 
 
+
 def main():
     Continue = True
     while Continue:
@@ -34,7 +35,7 @@ def main():
             continue
 
         game = True
-        player_busts = {}
+        player_busts = {} # dead code - no usage yet
         while game:
             time.sleep(2)
             print("===========================================")
